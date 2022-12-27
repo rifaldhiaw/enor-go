@@ -1,12 +1,11 @@
 package main
 
 import (
+	_ "enor-go/migrations"
 	"log"
 
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/plugins/migratecmd"
-
-	_ "enor-go/migrations"
 )
 
 func main() {
