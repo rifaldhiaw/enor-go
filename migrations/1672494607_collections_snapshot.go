@@ -15,7 +15,7 @@ func init() {
 			{
 				"id": "_pb_users_auth_",
 				"created": "2022-12-25 06:07:47.078Z",
-				"updated": "2022-12-27 04:30:33.315Z",
+				"updated": "2022-12-31 13:16:01.807Z",
 				"name": "users",
 				"type": "auth",
 				"system": false,
@@ -82,8 +82,8 @@ func init() {
 						}
 					}
 				],
-				"listRule": "id = @request.auth.id",
-				"viewRule": "id = @request.auth.id",
+				"listRule": "organization.id = @request.auth.organization.id",
+				"viewRule": "organization.id = @request.auth.organization.id",
 				"createRule": "",
 				"updateRule": "id = @request.auth.id",
 				"deleteRule": "id = @request.auth.id",
@@ -101,7 +101,7 @@ func init() {
 			{
 				"id": "2x7xas5ydcwxxmr",
 				"created": "2022-12-27 03:50:13.087Z",
-				"updated": "2022-12-27 04:32:49.494Z",
+				"updated": "2022-12-31 10:11:39.619Z",
 				"name": "teams",
 				"type": "base",
 				"system": false,
@@ -143,7 +143,7 @@ func init() {
 			{
 				"id": "npbg8ayih40mdup",
 				"created": "2022-12-27 03:50:41.317Z",
-				"updated": "2022-12-27 10:51:00.447Z",
+				"updated": "2022-12-31 10:11:39.620Z",
 				"name": "channels",
 				"type": "base",
 				"system": false,
@@ -203,7 +203,7 @@ func init() {
 			{
 				"id": "qs1w0clyttknnz5",
 				"created": "2022-12-27 04:21:59.573Z",
-				"updated": "2022-12-27 04:30:16.174Z",
+				"updated": "2022-12-31 10:11:39.620Z",
 				"name": "organizations",
 				"type": "base",
 				"system": false,
@@ -227,6 +227,88 @@ func init() {
 				"createRule": "id = @request.auth.organization.id && @request.auth.appRole = \"admin\"",
 				"updateRule": "id = @request.auth.organization.id && @request.auth.appRole = \"admin\"",
 				"deleteRule": null,
+				"options": {}
+			},
+			{
+				"id": "tt0b8hchute5mz4",
+				"created": "2022-12-28 06:42:54.045Z",
+				"updated": "2022-12-31 12:03:29.528Z",
+				"name": "messages",
+				"type": "base",
+				"system": false,
+				"schema": [
+					{
+						"system": false,
+						"id": "nmn9bkta",
+						"name": "body",
+						"type": "json",
+						"required": false,
+						"unique": false,
+						"options": {}
+					},
+					{
+						"system": false,
+						"id": "venx6bpd",
+						"name": "user",
+						"type": "relation",
+						"required": true,
+						"unique": false,
+						"options": {
+							"maxSelect": 1,
+							"collectionId": "_pb_users_auth_",
+							"cascadeDelete": false
+						}
+					},
+					{
+						"system": false,
+						"id": "ekgmgerj",
+						"name": "reaction",
+						"type": "json",
+						"required": false,
+						"unique": false,
+						"options": {}
+					},
+					{
+						"system": false,
+						"id": "krhtm2di",
+						"name": "parent",
+						"type": "relation",
+						"required": false,
+						"unique": false,
+						"options": {
+							"maxSelect": 1,
+							"collectionId": "tt0b8hchute5mz4",
+							"cascadeDelete": false
+						}
+					},
+					{
+						"system": false,
+						"id": "bgi4vhxh",
+						"name": "channel",
+						"type": "relation",
+						"required": false,
+						"unique": false,
+						"options": {
+							"maxSelect": 1,
+							"collectionId": "npbg8ayih40mdup",
+							"cascadeDelete": false
+						}
+					},
+					{
+						"system": false,
+						"id": "eq9rrtsl",
+						"name": "replySummary",
+						"type": "json",
+						"required": false,
+						"unique": false,
+						"options": {}
+					}
+				],
+				"listRule": "@request.auth.organization.id = user.organization.id",
+				"viewRule": "@request.auth.organization.id = user.organization.id",
+				"createRule": "@request.auth.id = user.id",
+				"updateRule": "@request.auth.id = user.id",
+				"deleteRule": "@request.auth.id = user.id",
 				"options": {}
 			}
 		]`
