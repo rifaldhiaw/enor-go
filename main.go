@@ -28,7 +28,25 @@ func main() {
 		// if collection is "messages" and parent field is not empty,
 		// update parent record
 		if e.Record.Collection().Name == "messages" && e.Record.Get("parent") != nil {
-			return updateReplySummary(app, e)
+			updateReplySummary(app, e)
+		}
+
+		// if collection is "messages" and parent field is empty
+		// then increment lastMessageClock in it's channel record
+		if e.Record.Collection().Name == "messages" && e.Record.Get("parent") == nil {
+			channelID := e.Record.Get("channel").(string)
+			channelRecord, err := app.Dao().FindRecordById("channels", channelID)
+			if err != nil {
+				return err
+			}
+
+			lastMessageClock := channelRecord.GetInt("lastMessageClock")
+
+			channelRecord.Set("lastMessageClock", lastMessageClock+1)
+			err = app.Dao().SaveRecord(channelRecord)
+			if err != nil {
+				return err
+			}
 		}
 
 		return nil
